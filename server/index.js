@@ -14,8 +14,8 @@ const webpackHotMiddleware = require("webpack-hot-middleware");
 const config = require("../config/webpack.config.js");
 
 const ShopifyAPIClient = require("shopify-api-node");
-const ShopifyExpress = require("@topmonks/shopify-express");
-const { MemoryStrategy } = require("@topmonks/shopify-express/strategies");
+const ShopifyExpress = require("shopify-express-rdj");
+const { MemoryStrategy } = require("shopify-express-rdj/strategies");
 
 const {
   SHOPIFY_APP_KEY,
