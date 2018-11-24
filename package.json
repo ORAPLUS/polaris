@@ -11,7 +11,7 @@
     "clean": "rm -rf ./assets && mkdir ./assets",
     "pretty": "prettier --single-quote --trailing-comma es5 --write {client,bin,config,server}{/*,/**/*}.js",
     "precommit": "yarn run pretty",
-    "heroku-prebuild": "yarn install --production=false",
+    "heroku-prebuild": "npm install --production=false",
     "postinstall": "NODE_ENV=production webpack --config ./config/webpack.config.js"
   },
   "engines": {
