@@ -8,7 +8,7 @@
     "go": "node ./bin/www",
     "start": "npm run clean && npm run build && NODE_ENV=production npm run go",
     "build": "NODE_ENV=production webpack --config ./config/webpack.config.js --progress --profile --colors",
-    "clean": "rm -rf ./assets && mkdir ./assets",
+    "clean": "rm -rf assets && mkdir assets",
     "pretty": "prettier --single-quote --trailing-comma es5 --write {client,bin,config,server}{/*,/**/*}.js",
     "precommit": "npm run pretty",
     "heroku-prebuild": "npm install --production=false",
