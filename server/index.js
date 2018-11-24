@@ -1,6 +1,6 @@
 require("isomorphic-fetch");
 require("dotenv").config();
-
+var client = require("redis").createClient(process.env.REDIS_URL);
 const fs = require("fs");
 const express = require("express");
 const session = require("express-session");
@@ -71,7 +71,7 @@ app.set("view engine", "ejs");
 app.use(logger("dev"));
 app.use(
   session({
-    store: isDevelopment ? undefined : new RedisStore(),
+    store: isDevelopment ? undefined : new RedisStore({ client: client }),
     secret: SHOPIFY_APP_SECRET,
     resave: true,
     saveUninitialized: false
