@@ -60,9 +60,7 @@
     "webpack": "^2.6.1",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-middleware": "^1.5.1",
-    "yarn": "^1.12.3"
-  },
-  "devDependencies": {
+    "yarn": "^1.12.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -70,10 +68,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "prettier": "^1.5.2"
+  },
+  "devDependencies": {
     "eslint": "3.19.0",
     "eslint-plugin-prettier": "^2.1.2",
     "global": "^4.3.2",
-    "prettier": "^1.5.2",
     "webpack-dev-server": "^2.4.5"
   }
 }
