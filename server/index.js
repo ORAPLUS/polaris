@@ -16,7 +16,7 @@ const config = require("../config/webpack.config.js");
 
 const ShopifyAPIClient = require("shopify-api-node");
 const ShopifyExpress = require("shopify-express-rdj");
-const { RedisStrategy } = require("shopify-express-rdj/strategies");
+const { MemoryStrategy } = require("shopify-express-rdj/strategies");
 
 const {
   SHOPIFY_APP_KEY,
@@ -33,7 +33,7 @@ const shopifyConfig = {
     "read_orders, write_orders, read_products, write_products, read_content, write_content, read_customers, write_customers, read_themes, write_themes, read_product_listings, read_script_tags, write_script_tags, read_resource_feedbacks, write_resource_feedbacks"
   ],
   accessMode: "offline",
-  shopStore: new RedisStrategy(),
+  shopStore: new MemoryStrategy(),
   afterAuth(request, response) {
     const {
       session: { accessToken, shop }
