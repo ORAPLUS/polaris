@@ -1,20 +1,19 @@
-import React, { Component} from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Layout, Stack, Card, TextField, Button } from "@shopify/polaris";
+import ObjectInspector from "react-object-inspector";
+import { updatePath, updateParams, sendRequest } from "../actions";
 
-import { Layout, Stack, Card, TextField, Button } from '@shopify/polaris';
-import ObjectInspector from 'react-object-inspector';
-import { updatePath, updateParams, sendRequest } from '../actions';
-
-import VerbPicker from './VerbPicker';
+import VerbPicker from "./VerbPicker";
 
 class ApiConsole extends Component {
   render() {
     return (
       <Layout sectioned>
-        { this.renderForm() }
-        { this.renderResponse() }
+        {this.renderForm()}
+        {this.renderResponse()}
       </Layout>
-    )
+    );
   }
 
   renderForm() {
@@ -29,7 +28,10 @@ class ApiConsole extends Component {
               value={requestFields.path}
               onChange={path => dispatch(updatePath(path))}
             />
-            <Button primary onClick={() => dispatch(sendRequest(requestFields))}>
+            <Button
+              primary
+              onClick={() => dispatch(sendRequest(requestFields))}
+            >
               Send
             </Button>
           </Stack>
@@ -37,13 +39,13 @@ class ApiConsole extends Component {
 
         {this.renderParams()}
       </div>
-    )
+    );
   }
 
   renderParams() {
     const { dispatch, requestFields } = this.props;
 
-    if (requestFields.verb === 'GET') {
+    if (requestFields.verb === "GET") {
       return null;
     } else {
       return (
@@ -62,29 +64,28 @@ class ApiConsole extends Component {
   renderResponse() {
     const { requestInProgress, requestError, responseBody } = this.props;
 
-    if (responseBody === '') {
+    if (responseBody === "") {
       return null;
     }
 
     if (requestInProgress) {
-      return (
-        <Layout.Section>
-          'requesting...';
-        </Layout.Section>
-      )
+      return <Layout.Section>'requesting...';</Layout.Section>;
     }
 
-    const data = JSON.parse(responseBody)
+    const data = JSON.parse(responseBody);
 
     return (
       <Layout.Section>
         <Card>
-          <div style={{margin: '15px 15px'}}>
-            <ObjectInspector data={data} initialExpandedPaths={['root', 'root.*']}/>
+          <div style={{ margin: "15px 15px" }}>
+            <ObjectInspector
+              data={data}
+              initialExpandedPaths={["root", "root.*"]}
+            />
           </div>
         </Card>
       </Layout.Section>
-    )
+    );
   }
 }
 
@@ -92,13 +93,13 @@ function mapStateToProps({
   requestFields,
   requestInProgress,
   requestError,
-  responseBody,
+  responseBody
 }) {
   return {
     requestFields,
     requestInProgress,
     requestError,
-    responseBody,
+    responseBody
   };
 }
 
