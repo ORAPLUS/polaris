@@ -1,5 +1,6 @@
 require("isomorphic-fetch");
 require("dotenv").config();
+
 var client = require("redis").createClient(process.env.REDIS_URL);
 const fs = require("fs");
 const express = require("express");
@@ -15,7 +16,7 @@ const config = require("../config/webpack.config.js");
 
 const ShopifyAPIClient = require("shopify-api-node");
 const ShopifyExpress = require("shopify-express-rdj");
-const { MemoryStrategy } = require("shopify-express-rdj/strategies");
+const { RedisStrategy } = require("shopify-express-rdj/strategies");
 
 const {
   SHOPIFY_APP_KEY,
@@ -28,39 +29,18 @@ const shopifyConfig = {
   host: SHOPIFY_APP_HOST,
   apiKey: SHOPIFY_APP_KEY,
   secret: SHOPIFY_APP_SECRET,
-  scope: ["read_orders, write_orders, read_products, write_products, read_content, write_content, read_customers, write_customers, read_themes, write_themes, read_product_listings, read_script_tags, write_script_tags, read_resource_feedbacks, write_resource_feedbacks"],
-  shopStore: new MemoryStrategy(),
+  scope: [
+    "read_orders, write_orders, read_products, write_products, read_content, write_content, read_customers, write_customers, read_themes, write_themes, read_product_listings, read_script_tags, write_script_tags, read_resource_feedbacks, write_resource_feedbacks"
+  ],
+  accessMode: "offline",
+  shopStore: new RedisStrategy(),
   afterAuth(request, response) {
     const {
       session: { accessToken, shop }
     } = request;
 
-    registerWebhook(shop, accessToken, {
-      topic: "orders/create",
-      address: `${SHOPIFY_APP_HOST}/order-create`,
-      format: "json"
-    });
-
     return response.redirect("/");
   }
-};
-
-const registerWebhook = function(shopDomain, accessToken, webhook) {
-  const shopify = new ShopifyAPIClient({
-    shopName: shopDomain,
-    accessToken: accessToken
-  });
-  shopify.webhook
-    .create(webhook)
-    .then(
-      response => console.log(`webhook '${webhook.topic}' created`),
-      err =>
-        console.log(
-          `Error creating webhook '${webhook.topic}'. ${JSON.stringify(
-            err.response.body
-          )}`
-        )
-    );
 };
 
 const app = express();
@@ -129,20 +109,6 @@ app.get("/", withShop({ authBaseUrl: "/shopify" }), function(
     shop: shop
   });
 });
-
-app.post(
-  "/order-create",
-  withWebhook((error, request) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    console.log("We got a webhook!");
-    console.log("Details: ", request.webhook);
-    console.log("Body:", request.body);
-  })
-);
 
 // Error Handlers
 app.use(function(req, res, next) {
