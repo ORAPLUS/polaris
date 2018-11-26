@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const autoprefixer = require("autoprefixer");
-
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 const sourceMap = isDevelopment;
@@ -15,12 +15,6 @@ const plugins = isDevelopment
   : [
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify("production")
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-          warnings: false
-        },
-        minimize: true
       })
     ];
 
@@ -45,6 +39,20 @@ module.exports = {
     path: path.resolve(__dirname, "../assets"),
     publicPath: "/assets/",
     libraryTarget: "var"
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
+    ]
   },
   module: {
     rules: [
