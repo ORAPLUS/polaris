@@ -23,7 +23,7 @@ const extraEntryFiles = isDevelopment
   : [];
 
 module.exports = {
-  mode: "none",
+  mode: "production",
   plugins,
   target: "web",
   devtool: false,
