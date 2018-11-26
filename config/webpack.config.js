@@ -29,9 +29,10 @@ const extraEntryFiles = isDevelopment
   : [];
 
 module.exports = {
+  mode: "none",
   plugins,
   target: "web",
-  devtool: "eval",
+  devtool: false,
   entry: {
     main: [
       ...extraEntryFiles,
