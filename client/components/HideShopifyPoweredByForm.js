@@ -50,7 +50,7 @@ class HideShopifyPoweredByForm extends Component {
               <FormLayout>
                 <Checkbox
                   checked={checked}
-                  label="🔴Hide Me Now"
+                  label="Off"
                   onChange={this.handleChange}
                 />
               </FormLayout>

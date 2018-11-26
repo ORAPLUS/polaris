@@ -52,7 +52,7 @@ class HeaderForm extends Component {
             <Card sectioned>
               <FormLayout>
                 <TextField
-                  label="Your message (Use HTML Tag 🌐)"
+                  label="Your message"
                   value={messageValue}
                   onChange={this.handleMessageChange}
                   labelAction={{
