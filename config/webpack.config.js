@@ -40,6 +40,11 @@ module.exports = {
     publicPath: "/assets/",
     libraryTarget: "var"
   },
+  performance: {
+    hints: false // false turns off errors, default is 'warning',
+    maxEntrypointSize: 400000 // (in bytes) default is 250000
+    maxAssetSize: 100000 // (in bytes) default is 250000
+  },
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
