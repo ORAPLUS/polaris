@@ -41,9 +41,9 @@ module.exports = {
     libraryTarget: "var"
   },
   performance: {
-    hints: false // false turns off errors, default is 'warning',
-    maxEntrypointSize: 400000 // (in bytes) default is 250000
-    maxAssetSize: 100000 // (in bytes) default is 250000
+    hints: false,
+    maxEntrypointSize: 400000,
+    maxAssetSize: 100000
   },
   optimization: {
     minimizer: [
