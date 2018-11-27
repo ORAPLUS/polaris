@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { AppProvider } from "@shopify/polaris";
 import store from "./store";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
-  <Provider store={store}>
+  <AppProvider store={store}>
     <App />
-  </Provider>,
+  </AppProvider>,
   document.getElementById("root")
 );
 registerServiceWorker();
