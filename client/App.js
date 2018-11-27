@@ -273,10 +273,10 @@ class App extends Component {
         accessibilityLabel: "YouBB"
       }
     };
-
+    const { apiKey, shopOrigin } = window;
     return (
       <div style={{ height: "500px" }}>
-        <AppProvider theme={theme}>
+        <AppProvider theme={theme} shopOrigin={shopOrigin} apiKey={apiKey}>
           <Frame
             topBar={topBarMarkup}
             navigation={navigationMarkup}
