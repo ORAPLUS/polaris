@@ -32,7 +32,7 @@ class App extends Component {
   defaultState = {
     emailFieldValue: "Ayoub@youbb.us",
     nameFieldValue: "Ayoub Youb",
-    test: <ModeDevForm />,
+    dev: <ModeDevForm />,
     header: <HeaderForm />,
     hidePaypalCart: <HidePaypalCart />,
     hideShopifyPoweredBy: <HideShopifyPoweredByForm />
@@ -135,7 +135,7 @@ class App extends Component {
             {
               label: "Mode DEV",
               icon: customIcon,
-              onClick: this.toggleStateClick("test")
+              onClick: this.toggleStateClick("dev")
             },
             {
               label: "Welcome Header Bar",
@@ -296,10 +296,10 @@ class App extends Component {
   toggleStateClick = value => {
     return () => {
       switch (value) {
-        case "test":
+        case "dev":
           this.setState({
             isLoading: false,
-            loadingPage: this.defaultState.test
+            loadingPage: this.defaultState.dev
           });
           break;
         case "header":
