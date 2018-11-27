@@ -133,7 +133,7 @@ class App extends Component {
           title="Settings"
           items={[
             {
-              label: "TEST",
+              label: "Mode DEV",
               icon: customIcon,
               onClick: this.toggleStateClick("test")
             },
