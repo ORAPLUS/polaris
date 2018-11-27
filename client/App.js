@@ -277,7 +277,7 @@ class App extends Component {
 
     return (
       <div style={{ height: "500px" }}>
-        <AppProvider theme={theme} shopOrigin={shopOrigin} apiKey={apiKey}>
+        <AppProvider theme={theme}>
           <Frame
             topBar={topBarMarkup}
             navigation={navigationMarkup}
