@@ -1,23 +1,14 @@
-import * as React from "react";
-import "isomorphic-fetch";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { AppContainer } from "react-hot-loader";
+import React from "react";
+import ReactDOM from "react-dom";
+import { AppProvider } from "@shopify/polaris";
+import store from "./store";
 import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 
-function renderApp() {
-  render(
-    <AppContainer>
-      <Provider>
-        <App />
-      </Provider>
-    </AppContainer>,
-    document.getElementById("root")
-  );
-}
-
-renderApp();
-
-if (module.hot) {
-  module.hot.accept();
-}
+ReactDOM.render(
+  <AppProvider store={store}>
+    <App />
+  </AppProvider>,
+  document.getElementById("root")
+);
+registerServiceWorker();

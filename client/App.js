@@ -21,6 +21,12 @@ import {
 } from "@shopify/polaris";
 import "@shopify/polaris/styles.css";
 
+const customIcon = {
+  viewBox: "0 0 20 20",
+  body:
+    '<g transform="scale(0.5)"><path d="M16 0 C6 0 2 4 2 14 L2 22 L6 24 L6 30 L26 30 L26 24 L30 22 L30 14 C30 4 26 0 16 0 M9 12 A4.5 4.5 0 0 1 9 21 A4.5 4.5 0 0 1 9 12 M23 12 A4.5 4.5 0 0 1 23 21 A4.5 4.5 0 0 1 23 12"></path></g>'
+};
+
 class App extends Component {
   defaultState = {
     emailFieldValue: "Ayoub@youbb.us",
@@ -40,9 +46,8 @@ class App extends Component {
     storeName: this.defaultState.nameFieldValue,
     supportSubject: "",
     supportMessage: "",
-    loadingPage: this.defaultState.header
+    loadingPage: ""
   };
-
   render() {
     const {
       isLoading,
@@ -57,32 +62,30 @@ class App extends Component {
 
     const userMenuActions = [
       {
-        items: [{ content: "Back to Shopify", icon: "arrowLeft" }]
+        items: [
+          {
+            content: "Back to Shopify",
+            icon: "arrowLeft"
+          }
+        ]
       },
       {
-        items: [{ content: "Community forums" }]
+        items: [
+          {
+            content: "Community forums"
+          }
+        ]
       }
     ];
-
-    const navigationUserMenuMarkup = (
-      <Navigation.UserMenu
-        actions={userMenuActions}
-        name="Ayoub"
-        detail={storeName}
-        avatarInitials="A"
-        key="Ayoub"
-      />
-    );
 
     const userMenuMarkup = (
       <TopBar.UserMenu
         actions={userMenuActions}
-        name="Ayoub"
+        name="USER"
         detail={storeName}
-        initials="A"
+        initials="U"
         open={userMenuOpen}
         onToggle={this.toggleState("userMenuOpen")}
-        key="Ayoub"
       />
     );
 
@@ -90,8 +93,12 @@ class App extends Component {
       <Card>
         <ActionList
           items={[
-            { content: "Shopify help center" },
-            { content: "Community forums" }
+            {
+              content: "Shopify help center"
+            },
+            {
+              content: "Community forums"
+            }
           ]}
         />
       </Card>
@@ -118,74 +125,65 @@ class App extends Component {
     );
 
     const navigationMarkup = (
-      <Navigation location="/" userMenu={navigationUserMenuMarkup}>
+      <Navigation>
         <Navigation.Section
           title="Settings"
           items={[
             {
               label: "Welcome Header Bar",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "header")
+              icon: customIcon,
+              onClick: this.toggleStateClick("header")
             },
             {
               label: "Hide Paypal Cart",
               icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "paypal")
+              onClick: this.toggleStateClick("paypal")
             },
             {
               label: "Hide Powerd By Shopify",
               icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "shopify")
+              onClick: this.toggleStateClick("shopify")
             },
             {
               label: "Hide Best Selling",
               icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "best")
+              onClick: this.toggleStateClick("best")
             },
             {
               label: "Add To Cart Sticky",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "cartsticky")
+              icon: "circleChevronRight"
             },
             {
               label: "Add To Cart Animated",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "cartanimated")
+              icon: "circleChevronRight"
             },
             {
               label: "Back To Top",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "top")
+              icon: "circleChevronRight"
             },
             {
               label: "Currency Converter",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "currency")
+              icon: "circleChevronRight"
             },
             {
               label: "Countdown Timer",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "countdown")
+              icon: "circleChevronRight"
             },
             {
               label: "Payment Icons",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "payment")
+              icon: "circleChevronRight"
             },
             {
               label: "Facebook Multi Pixel's",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "fbpixel")
+              icon: "circleChevronRight"
             },
             {
               label: "Related Products",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "related")
+              icon: "circleChevronRight"
             },
             {
               label: "YouBB Reviews",
-              icon: "circleChevronRight",
-              onClick: this.toggleState("isLoading", "reviews")
+              icon: "circleChevronRight"
             }
           ]}
         />
@@ -194,8 +192,7 @@ class App extends Component {
           items={[
             {
               label: "Help center",
-              icon: "help",
-              onClick: this.toggleState("isLoading")
+              icon: "help"
             }
           ]}
           separator
@@ -288,9 +285,8 @@ class App extends Component {
     );
   }
 
-  toggleState = (key, value) => {
+  toggleStateClick = value => {
     return () => {
-      this.setState(prevState => ({ [key]: !prevState[key] }));
       switch (value) {
         case "header":
           this.setState({
@@ -317,6 +313,11 @@ class App extends Component {
           });
           break;
       }
+    };
+  };
+  toggleState = (key, value) => {
+    return () => {
+      this.setState(prevState => ({ [key]: !prevState[key] }));
     };
   };
 

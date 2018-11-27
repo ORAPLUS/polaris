@@ -50,7 +50,7 @@ class HidePaypalCartForm extends Component {
               <FormLayout>
                 <Checkbox
                   checked={checked}
-                  label="Off"
+                  label="🔴Hide Me Now"
                   onChange={this.handleChange}
                 />
               </FormLayout>
