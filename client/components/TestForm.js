@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Page, AppProvider } from "@shopify/polaris";
-import ApiConsole from "./components/ApiConsole";
+import ApiConsole from "./ApiConsole";
 
 class TestForm extends Component {
   render() {
