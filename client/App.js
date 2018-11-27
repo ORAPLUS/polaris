@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TestForm from "./components/TestForm";
 import HeaderForm from "./components/HeaderForm";
 import HidePaypalCart from "./components/HidePaypalCartForm";
 import HideShopifyPoweredByForm from "./components/HideShopifyPoweredByForm";
@@ -31,6 +32,7 @@ class App extends Component {
   defaultState = {
     emailFieldValue: "Ayoub@youbb.us",
     nameFieldValue: "Ayoub Youb",
+    test: <TestForm />,
     header: <HeaderForm />,
     hidePaypalCart: <HidePaypalCart />,
     hideShopifyPoweredBy: <HideShopifyPoweredByForm />
@@ -129,6 +131,11 @@ class App extends Component {
         <Navigation.Section
           title="Settings"
           items={[
+            {
+              label: "TEST",
+              icon: customIcon,
+              onClick: this.toggleStateClick("test")
+            },
             {
               label: "Welcome Header Bar",
               icon: customIcon,
@@ -288,6 +295,12 @@ class App extends Component {
   toggleStateClick = value => {
     return () => {
       switch (value) {
+        case "test":
+          this.setState({
+            isLoading: false,
+            loadingPage: this.defaultState.test
+          });
+          break;
         case "header":
           this.setState({
             isLoading: false,
