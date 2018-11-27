@@ -6,7 +6,8 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
-  <AppProvider store={store}>
+  const { apiKey, shopOrigin } = window;
+  <AppProvider store={store} shopOrigin={shopOrigin} apiKey={apiKey}>
     <App />
   </AppProvider>,
   document.getElementById("root")
