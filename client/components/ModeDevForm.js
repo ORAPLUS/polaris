@@ -7,7 +7,7 @@ import { updatePath, updateParams, sendRequest } from "../actions";
 
 import VerbPicker from "./VerbPicker";
 
-class ApiConsole extends Component {
+class ModeDevForm extends Component {
   render() {
     return (
       <Page title="Theme settings">
@@ -106,4 +106,4 @@ function mapStateToProps({
   };
 }
 
-export default connect(mapStateToProps)(ApiConsole);
+export default connect(mapStateToProps)(ModeDevForm);

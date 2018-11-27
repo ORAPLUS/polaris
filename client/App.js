@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TestForm from "./components/TestForm";
+import ModeDevForm from "./components/ModeDevForm";
 import HeaderForm from "./components/HeaderForm";
 import HidePaypalCart from "./components/HidePaypalCartForm";
 import HideShopifyPoweredByForm from "./components/HideShopifyPoweredByForm";
@@ -32,7 +32,7 @@ class App extends Component {
   defaultState = {
     emailFieldValue: "Ayoub@youbb.us",
     nameFieldValue: "Ayoub Youb",
-    test: <TestForm />,
+    test: <ModeDevForm />,
     header: <HeaderForm />,
     hidePaypalCart: <HidePaypalCart />,
     hideShopifyPoweredBy: <HideShopifyPoweredByForm />
@@ -139,7 +139,7 @@ class App extends Component {
             },
             {
               label: "Welcome Header Bar",
-              icon: customIcon,
+              icon: "circleChevronRight",
               onClick: this.toggleStateClick("header")
             },
             {
