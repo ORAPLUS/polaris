@@ -51,6 +51,7 @@ class App extends Component {
     loadingPage: ""
   };
   render() {
+    const { apiKey, shopOrigin } = window;
     const {
       isLoading,
       searchActive,
@@ -273,9 +274,10 @@ class App extends Component {
         accessibilityLabel: "YouBB"
       }
     };
+
     return (
       <div style={{ height: "500px" }}>
-        <AppProvider theme={theme}>
+        <AppProvider theme={theme} shopOrigin={shopOrigin} apiKey={apiKey}>
           <Frame
             topBar={topBarMarkup}
             navigation={navigationMarkup}
