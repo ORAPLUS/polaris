@@ -37,7 +37,7 @@ export const getProducts = () => dispatch => {
     method: "GET",
     withCredentials: true,
     headers: {
-      Accept: "application/json",
+      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json"
     }
   })
