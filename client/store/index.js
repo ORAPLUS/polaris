@@ -1,14 +1,17 @@
-import { GET_ERRORS, CLEAR_ERRORS } from "../actions/types";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import reducer from "../reducers";
 
 const initialState = {};
 
-export default function(state = initialState, action) {
-  switch (action.type) {
-    case GET_ERRORS:
-      return action.payload;
-    case CLEAR_ERRORS:
-      return {};
-    default:
-      return state;
-  }
-}
+const middleware = applyMiddleware(thunk, logger);
+
+const store = createStore(
+  reducer,
+  initialState,
+  composeWithDevTools(middleware)
+);
+
+export default store;
