@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ModeDevForm from "./components/ModeDevForm";
-import HeaderForm from "./components/HeaderForm";
-import HidePaypalCart from "./components/HidePaypalCartForm";
-import HideShopifyPoweredByForm from "./components/HideShopifyPoweredByForm";
+import Products from "./components/products/Products";
+import HeaderForm from "./components/header/HeaderForm";
+import HidePaypalCart from "./components/paypal/HidePaypalCartForm";
+import HideShopifyPoweredByForm from "./components/shopify/HideShopifyPoweredByForm";
 import {
   AppProvider,
   Navigation,
@@ -21,18 +21,28 @@ import {
   SkeletonPage
 } from "@shopify/polaris";
 import "@shopify/polaris/styles.css";
-
-const customIcon = {
-  viewBox: "0 0 20 20",
-  body:
-    '<g transform="scale(0.5)"><path d="M16 0 C6 0 2 4 2 14 L2 22 L6 24 L6 30 L26 30 L26 24 L30 22 L30 14 C30 4 26 0 16 0 M9 12 A4.5 4.5 0 0 1 9 21 A4.5 4.5 0 0 1 9 12 M23 12 A4.5 4.5 0 0 1 23 21 A4.5 4.5 0 0 1 23 12"></path></g>'
-};
+import {
+  devIcon,
+  headerIcon,
+  paypalIcon,
+  shopifyIcon,
+  bestIcon,
+  cartstickyIcon,
+  cartanimatedIcon,
+  topIcon,
+  currencyIcon,
+  countdownIcon,
+  paymentIcon,
+  fbpixelIcon,
+  relatedIcon,
+  reviewsIcon
+} from "./img/icons";
 
 class App extends Component {
   defaultState = {
     emailFieldValue: "Ayoub@youbb.us",
     nameFieldValue: "Ayoub Youb",
-    dev: <ModeDevForm />,
+    dev: <Products />,
     header: <HeaderForm />,
     hidePaypalCart: <HidePaypalCart />,
     hideShopifyPoweredBy: <HideShopifyPoweredByForm />
@@ -42,55 +52,21 @@ class App extends Component {
     isLoading: false,
     searchActive: false,
     searchText: "",
-    userMenuOpen: false,
     showMobileNavigation: false,
     modalActive: false,
-    storeName: this.defaultState.nameFieldValue,
     supportSubject: "",
     supportMessage: "",
-    loadingPage: ""
+    loadingPage: this.defaultState.dev // a remplacer svp par ""
   };
   render() {
-    const { apiKey, shopOrigin } = window;
     const {
       isLoading,
       searchActive,
       searchText,
-      userMenuOpen,
       showMobileNavigation,
       modalActive,
-      storeName,
       loadingPage
     } = this.state;
-
-    const userMenuActions = [
-      {
-        items: [
-          {
-            content: "Back to Shopify",
-            icon: "arrowLeft"
-          }
-        ]
-      },
-      {
-        items: [
-          {
-            content: "Community forums"
-          }
-        ]
-      }
-    ];
-
-    const userMenuMarkup = (
-      <TopBar.UserMenu
-        actions={userMenuActions}
-        name="USER"
-        detail={storeName}
-        initials="U"
-        open={userMenuOpen}
-        onToggle={this.toggleState("userMenuOpen")}
-      />
-    );
 
     const searchResultsMarkup = (
       <Card>
@@ -118,7 +94,6 @@ class App extends Component {
     const topBarMarkup = (
       <TopBar
         showNavigationToggle={true}
-        userMenu={userMenuMarkup}
         searchResultsVisible={searchActive}
         searchField={searchFieldMarkup}
         searchResults={searchResultsMarkup}
@@ -134,64 +109,73 @@ class App extends Component {
           items={[
             {
               label: "Mode DEV",
-              icon: customIcon,
+              icon: devIcon,
               onClick: this.toggleStateClick("dev")
             },
             {
               label: "Welcome Header Bar",
-              icon: "circleChevronRight",
+              icon: headerIcon,
               onClick: this.toggleStateClick("header")
             },
             {
               label: "Hide Paypal Cart",
-              icon: "circleChevronRight",
+              icon: paypalIcon,
               onClick: this.toggleStateClick("paypal")
             },
             {
               label: "Hide Powerd By Shopify",
-              icon: "circleChevronRight",
+              icon: shopifyIcon,
               onClick: this.toggleStateClick("shopify")
             },
             {
               label: "Hide Best Selling",
-              icon: "circleChevronRight",
+              icon: bestIcon,
               onClick: this.toggleStateClick("best")
             },
             {
               label: "Add To Cart Sticky",
-              icon: "circleChevronRight"
+              icon: cartstickyIcon,
+              onClick: this.toggleStateClick("cartsticky")
             },
             {
               label: "Add To Cart Animated",
-              icon: "circleChevronRight"
+              icon: cartanimatedIcon,
+              onClick: this.toggleStateClick("cartanimated")
             },
             {
               label: "Back To Top",
-              icon: "circleChevronRight"
+              icon: topIcon,
+              onClick: this.toggleStateClick("top")
             },
             {
               label: "Currency Converter",
-              icon: "circleChevronRight"
+              icon: currencyIcon,
+              onClick: this.toggleStateClick("currency")
             },
             {
               label: "Countdown Timer",
-              icon: "circleChevronRight"
+              icon: countdownIcon,
+              onClick: this.toggleStateClick("countdown")
             },
             {
               label: "Payment Icons",
-              icon: "circleChevronRight"
+              icon: paymentIcon,
+              onClick: this.toggleStateClick("payment")
             },
             {
               label: "Facebook Multi Pixel's",
-              icon: "circleChevronRight"
+              icon: fbpixelIcon,
+              onClick: this.toggleStateClick("fbpixel")
             },
             {
               label: "Related Products",
-              icon: "circleChevronRight"
+              icon: relatedIcon,
+              onClick: this.toggleStateClick("related")
             },
             {
               label: "YouBB Reviews",
-              icon: "circleChevronRight"
+              icon: reviewsIcon,
+              onClick: this.toggleStateClick("reviews")
             }
           ]}
         />
@@ -200,7 +184,8 @@ class App extends Component {
           items={[
             {
               label: "Help center",
-              icon: "help"
+              icon: "help",
+              onClick: this.toggleStateClick("help")
             }
           ]}
           separator
