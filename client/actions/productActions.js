@@ -25,7 +25,7 @@ export const getProducts = () => dispatch => {
     .then(res =>
       dispatch({
         type: GET_PRODUCTS,
-        payload: res.data
+        payload: res.data.products
       })
     )
     .catch(err =>
@@ -35,7 +35,6 @@ export const getProducts = () => dispatch => {
       })
     );
 };
-
 // Get Product
 export const getProduct = id => dispatch => {
   dispatch(setProductLoading());
@@ -54,7 +53,6 @@ export const getProduct = id => dispatch => {
       })
     );
 };
-
 // Add Product
 export const addProduct = productData => dispatch => {
   dispatch(clearErrors());
@@ -73,7 +71,6 @@ export const addProduct = productData => dispatch => {
       })
     );
 };
-
 // Delete Product
 export const deleteProduct = id => dispatch => {
   axios

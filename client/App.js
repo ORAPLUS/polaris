@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Skeleton from "./components/common/Skeleton";
+import { connect } from "react-redux";
+import { getSettings } from "./actions/appActions";
 import Products from "./components/products/Products";
 import HeaderForm from "./components/header/HeaderForm";
-import HidePaypalCart from "./components/paypal/HidePaypalCartForm";
+import HidePaypalCartForm from "./components/paypal/HidePaypalCartForm";
 import HideShopifyPoweredByForm from "./components/shopify/HideShopifyPoweredByForm";
 import {
   AppProvider,
@@ -10,15 +14,10 @@ import {
   Card,
   ActionList,
   Loading,
-  Layout,
   FormLayout,
-  TextContainer,
-  SkeletonDisplayText,
-  SkeletonBodyText,
   Modal,
   TextField,
-  Frame,
-  SkeletonPage
+  Frame
 } from "@shopify/polaris";
 import "@shopify/polaris/styles.css";
 import {
@@ -39,32 +38,34 @@ import {
 } from "./img/icons";
 
 class App extends Component {
-  defaultState = {
-    emailFieldValue: "Ayoub@youbb.us",
-    nameFieldValue: "Ayoub Youb",
-    dev: <Products />,
-    header: <HeaderForm />,
-    hidePaypalCart: <HidePaypalCart />,
-    hideShopifyPoweredBy: <HideShopifyPoweredByForm />
-  };
-
-  state = {
-    isLoading: false,
-    searchActive: false,
-    searchText: "",
-    showMobileNavigation: false,
-    modalActive: false,
-    supportSubject: "",
-    supportMessage: "",
-    loadingPage: this.defaultState.dev // a remplacer svp par ""
-  };
+  componentDidMount() {
+    this.props.getSettings();
+  }
+  // Constructor init
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchActive: false,
+      searchText: "",
+      showMobileNavigation: false,
+      modalActive: false,
+      supportSubject: "",
+      supportMessage: "",
+      loadingPage: <HeaderForm />
+    };
+  }
+  // Render App
   render() {
+    // Get the list of Object props
+    const { loading } = this.props.app;
+    // Get States
     const {
-      isLoading,
       searchActive,
       searchText,
       showMobileNavigation,
       modalActive,
+      supportSubject,
+      supportMessage,
       loadingPage
     } = this.state;
 
@@ -108,7 +109,7 @@ class App extends Component {
           title="Settings"
           items={[
             {
-              label: "Mode Dev",
+              label: "Mode DEV",
               icon: devIcon,
               onClick: this.toggleStateClick("dev")
             },
@@ -198,22 +199,7 @@ class App extends Component {
       </Navigation>
     );
 
-    const loadingMarkup = isLoading ? <Loading /> : null;
-
-    const loadingPageMarkup = (
-      <SkeletonPage>
-        <Layout>
-          <Layout.Section>
-            <Card sectioned>
-              <TextContainer>
-                <SkeletonDisplayText size="small" />
-                <SkeletonBodyText lines={9} />
-              </TextContainer>
-            </Card>
-          </Layout.Section>
-        </Layout>
-      </SkeletonPage>
-    );
+    const loadingMarkup = loading ? <Loading /> : null;
 
     const modalMarkup = (
       <Modal
@@ -229,12 +215,12 @@ class App extends Component {
           <FormLayout>
             <TextField
               label="Subject"
-              value={this.state.supportSubject}
+              value={supportSubject}
               onChange={this.handleSubjectChange}
             />
             <TextField
               label="Message"
-              value={this.state.supportMessage}
+              value={supportMessage}
               onChange={this.handleMessageChange}
               multiline
             />
@@ -270,7 +256,7 @@ class App extends Component {
             onNavigationDismiss={this.toggleState("showMobileNavigation")}
           >
             {loadingMarkup}
-            {isLoading ? loadingPageMarkup : loadingPage}
+            {loading ? <Skeleton /> : loadingPage}
             {modalMarkup}
           </Frame>
         </AppProvider>
@@ -284,37 +270,37 @@ class App extends Component {
         case "dev":
           this.setState({
             isLoading: false,
-            loadingPage: this.defaultState.dev
+            loadingPage: <Products />
           });
           break;
         case "header":
           this.setState({
             isLoading: false,
-            loadingPage: this.defaultState.header
+            loadingPage: <HeaderForm />
           });
           break;
         case "paypal":
           this.setState({
             isLoading: false,
-            loadingPage: this.defaultState.hidePaypalCart
+            loadingPage: <HidePaypalCartForm />
           });
           break;
         case "shopify":
           this.setState({
             isLoading: false,
-            loadingPage: this.defaultState.hideShopifyPoweredBy
+            loadingPage: <HideShopifyPoweredByForm />
           });
           break;
         default:
           this.setState({
             isLoading: false,
-            loadingPage: this.defaultState.header
+            loadingPage: <HeaderForm />
           });
           break;
       }
     };
   };
-  toggleState = (key, value) => {
+  toggleState = key => {
     return () => {
       this.setState(prevState => ({ [key]: !prevState[key] }));
     };
@@ -347,4 +333,16 @@ class App extends Component {
   };
 }
 
-export default App;
+App.propTypes = {
+  getSettings: PropTypes.func.isRequired,
+  app: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  app: state.app
+});
+
+export default connect(
+  mapStateToProps,
+  { getSettings }
+)(App);

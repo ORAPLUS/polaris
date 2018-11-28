@@ -52,13 +52,9 @@ class HeaderForm extends Component {
             <Card sectioned>
               <FormLayout>
                 <TextField
-                  label="Your message (Use HTML Tag 🌐)"
+                  label="Your message"
                   value={messageValue}
                   onChange={this.handleMessageChange}
-                  labelAction={{
-                    content: "⭐ You can use Facebook Symbols",
-                    onAction: this.toggleSymbols
-                  }}
                   multiline
                 />
                 Define a Custom Background Color
