@@ -10,30 +10,11 @@ import {
   DELETE_PRODUCT
 } from "./types";
 
-// Add Product
-export const addProduct = productData => dispatch => {
-  dispatch(clearErrors());
-  axios
-    .post("/api/products", productData)
-    .then(res =>
-      dispatch({
-        type: ADD_PRODUCT,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
-
 // Get Products
 export const getProducts = () => dispatch => {
   dispatch(setProductLoading());
   axios({
-    url: `https://youbbdev.myshopify.com/admin/products.json`,
+    url: `https://polar-dusk-71351.herokuapp.com/shopify/api/products.json`,
     method: "GET",
     withCredentials: true,
     headers: {
@@ -54,6 +35,7 @@ export const getProducts = () => dispatch => {
       })
     );
 };
+
 // Get Product
 export const getProduct = id => dispatch => {
   dispatch(setProductLoading());
@@ -69,6 +51,25 @@ export const getProduct = id => dispatch => {
       dispatch({
         type: GET_PRODUCT,
         payload: null
+      })
+    );
+};
+
+// Add Product
+export const addProduct = productData => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post("/api/products", productData)
+    .then(res =>
+      dispatch({
+        type: ADD_PRODUCT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 };
