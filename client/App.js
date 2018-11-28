@@ -108,7 +108,7 @@ class App extends Component {
           title="Settings"
           items={[
             {
-              label: "Mode DEV",
+              label: "Mode Dev",
               icon: devIcon,
               onClick: this.toggleStateClick("dev")
             },
